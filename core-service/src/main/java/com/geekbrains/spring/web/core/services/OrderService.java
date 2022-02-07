@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -47,4 +49,13 @@ public class OrderService {
     public List<Order> findOrdersByUsername(String username) {
         return ordersRepository.findAllByUsername(username);
     }
+
+    public List<Order> findAllOrdersInTimePeriod(String startDateString, String finishDateString) {
+        LocalDateTime startDate = LocalDateTime.parse(startDateString);
+        LocalDateTime finishDate =LocalDateTime.parse(finishDateString);
+        return ordersRepository.findAllOrdersInTimePeriod(startDate,finishDate);
+    }
+
+
+
 }

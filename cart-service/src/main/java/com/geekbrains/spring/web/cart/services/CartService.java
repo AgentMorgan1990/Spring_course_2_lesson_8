@@ -7,18 +7,21 @@ import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundException;
 import com.geekbrains.spring.web.cart.integrations.ProductsServiceIntegration;
 import com.geekbrains.spring.web.cart.models.Cart;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 import java.util.function.Consumer;
+import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
 public class CartService {
     private final ProductsServiceIntegration productsServiceIntegration;
     private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Integer> redisTemplateProductCounter;
 
     @Value("${utils.cart.prefix}")
     private String cartPrefix;
@@ -43,6 +46,7 @@ public class CartService {
         execute(cartKey, c -> {
             c.add(productDto);
         });
+        changeDailyCountOfAddingProductToCart(productDto);
     }
 
     public void clearCart(String cartKey) {
@@ -73,5 +77,26 @@ public class CartService {
 
     public void updateCart(String cartKey, Cart cart) {
         redisTemplate.opsForValue().set(cartKey, cart);
+    }
+
+    private void changeDailyCountOfAddingProductToCart(ProductDto productDto) {
+        String productKey = (LocalDate.now()) +"_"+ productDto.getId();
+        if (!redisTemplateProductCounter.hasKey(productKey)) {
+            Integer counter = 1;
+            redisTemplateProductCounter.opsForValue().set(productKey, counter);
+        } else {
+            Integer counter = redisTemplateProductCounter.opsForValue().get(productKey);
+            redisTemplateProductCounter.opsForValue().set(productKey, counter + 1);
+        }
+    }
+
+    public Integer getCounterAddedToCartByDay(String productKey) {
+        Integer counter = 0;
+        if (!redisTemplateProductCounter.hasKey(productKey)) {
+            return counter;
+        } else {
+            counter = redisTemplateProductCounter.opsForValue().get(productKey);
+            return counter;
+        }
     }
 }
