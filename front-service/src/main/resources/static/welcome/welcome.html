@@ -1,4 +1,35 @@
 <div>
     <p></p>
-    <h1>WEB MARKET</h1>
+    <h1>WEB </h1>
+    <p></p>
+    <h3>Рекомендованные продукты по частоте покупок за месяц</h3>
+    <p></p>
+
+    <table class="table table-hover">
+        <tr>
+            <td>Наименование товара</td>
+            <td>Стоимость товара</td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="product in frequentlyPurchasedProducts">
+            <td>{{product.title}}</td>
+            <td>{{product.price}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>Рекомендованные продукты по частоте добавления в корзину</h3>
+    <p></p>
+
+    <table class="table table-hover">
+        <tr>
+            <td>Наименование товара</td>
+            <td>Стоимость товара</td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="product in frequentlyFoldedProducts">
+            <td>{{product.title}}</td>
+            <td>{{product.price}}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>

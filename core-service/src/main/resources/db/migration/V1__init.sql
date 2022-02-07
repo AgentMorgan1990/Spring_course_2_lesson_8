@@ -44,10 +44,34 @@ create table order_items
 );
 
 insert into orders (username, total_price, address, phone)
-values ('bob', 200, 'address', '12345');
+values ('bob', 200, 'address', '12345'),
+       ('b', 200, 'address', '12345'),
+       ('b', 200, 'address', '12345'),
+       ('b', 200, 'address', '12345'),
+       ('b', 200, 'address', '12345'),
+       ('b', 200, 'address', '12345'),
+       ('b', 200, 'address', '12345'),
+       ('b', 200, 'address', '12345'),
+       ('b', 200, 'address', '12345'),
+       ('b', 200, 'address', '12345'),
+       ('b', 200, 'address', '12345'),
+       ('b', 200, 'address', '12345'),
+       ('b', 200, 'address', '12345');
 
 insert into order_items (product_id, order_id, quantity, price_per_product, price)
-values (1, 1, 2, 100, 200);
+values (1, 1, 2, 100, 200),
+       (2, 2, 50, 100, 200),
+       (3, 3, 56, 100, 200),
+       (4, 4, 12, 100, 200),
+       (5, 5, 92, 100, 200),
+       (6, 6, 12, 100, 200),
+       (2, 7, 12, 100, 200),
+       (2, 8, 12, 100, 200),
+       (2, 9, 12, 100, 200),
+       (2, 10, 12, 100, 200),
+       (2, 11, 12, 100, 200),
+       (2, 12, 12, 100, 200),
+       (2, 13, 12, 100, 200);
 
 
 

@@ -1,0 +1,9 @@
+server:
+  port: 8180
+  servlet:
+    context-path: /web-market-recommendation
+integrations:
+  core-service:
+    url: http://localhost:5555/core
+  cart-service:
+    url: http://localhost:5555/cart

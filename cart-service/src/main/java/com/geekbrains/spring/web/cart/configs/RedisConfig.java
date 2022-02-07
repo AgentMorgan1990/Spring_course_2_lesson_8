@@ -24,4 +24,12 @@ public class RedisConfig {
         template.setConnectionFactory(jedisConnectionFactory());
         return template;
     }
+    @Bean
+    public RedisTemplate<String, Integer> redisTemplateProductCounters() {
+        RedisTemplate<String, Integer> template = new RedisTemplate<>();
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        template.setConnectionFactory(jedisConnectionFactory());
+        return template;
+    }
 }

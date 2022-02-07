@@ -1,5 +1,8 @@
 package com.geekbrains.spring.web.core.controllers;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundException;
 import com.geekbrains.spring.web.core.converters.ProductConverter;
 import com.geekbrains.spring.web.api.core.ProductDto;
@@ -32,6 +35,15 @@ public class ProductsController {
                 p -> productConverter.entityToDto(p)
         );
     }
+    @GetMapping("/products")
+    public List<ProductDto> getAllProducts(){
+        return productsService.findAll().stream()
+                .map(p->productConverter.entityToDto(p))
+                .collect(Collectors.toList());
+    }
+
+
+
 
     @GetMapping("/{id}")
     public ProductDto getProductById(@PathVariable Long id) {
